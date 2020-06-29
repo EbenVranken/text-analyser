@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>📝 Notes</title>
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="js/UndoRedo.js"></script>
+    <script src="js/main.js"></script>
+
+    <!--Fonts-->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Condensed:wght@700&display=swap" rel="stylesheet"> 
+</head>
+
+<body onload="valueCheck();">
+    <div class="container">
+        <div class="header">
+            <div class="options">
+                <button id="undo">⤺</button>
+                <button id="redo">⤻</button>
+                <button onclick="remove();">🗑</button>
+            </div>
+
+            <div class="buttons">
+                <button onclick="getScores(textarea.value);">Text score</button> 
+                <button onclick="save();">Save</button>
+            </div>
+        </div>
+
+        <div class="writing">
+            <textarea id="textfield" onkeyup="valueCheck();" wrap="soft"></textarea>
+        </div>
+
+        <div class="footer">
+            <span id="charCount">Characters:</span>
+            <span id="wordCount">Words:</span>
+            <span id="lineCount">Lines:</span>
+            <span id="currentLine">Current line:</span>
+            <span id="readTime">Reading time:</span>
+            <span id="speakTime"></span>
+        </div>
+
+        <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                  <span class="close">&times;</span>
+                  <h1>Your text scores:</h1>
+                  <div id="score"></div>
+                </div>
+              
+              </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/darkmode-js@1.5.6/lib/darkmode-js.min.js"></script>
+    <script src="js/darkmode.js"></script>
+    <script src="js/readability.js"></script>
+
+    <script>
+        // Require the library function
+        const txtHistory = window.UndoRedojs(2);
+        // Get the textarea
+        const textarea = document.querySelector("#textfield");
+        // Add event listener for inputs on the textarea
+        textarea.addEventListener('input', () => {
+            // Check if the new textarea value is different
+            if (txtHistory.current() !== textarea.value) {
+                // Check for pastes, auto corrects..
+                if ((textarea.value.length - txtHistory.current().length) > 1 || (textarea.value.length - txtHistory.current().length) < -1 || (textarea.value.length - txtHistory.current().length) === 0) {
+                    // Record the textarea value and force to bypass cooldown
+                    txtHistory.record(textarea.value, true);
+                    // Check for single key press, single chacacter paste..
+                } else {
+                    // Record the textarea value
+                    txtHistory.record(textarea.value);
+                }
+            }
+        });
+        // Some browsers will auto-fill the textarea again after reloading, this will deal with that
+        setTimeout(() => {
+            if (textarea.value) txtHistory.record(textarea.value, true);
+        }, 100);
+        // The undo button
+        document.querySelector("#undo").addEventListener('click', () => {
+            if (txtHistory.undo(true) !== undefined) {
+                textarea.value = txtHistory.undo();
+            }
+        });
+        // The redo button
+        document.querySelector("#redo").addEventListener('click', () => {
+            if (txtHistory.redo(true) !== undefined) {
+                textarea.value = txtHistory.redo();
+            }
+        });
+    </script>
+</body>
+
+</html>

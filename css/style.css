@@ -1,0 +1,172 @@
+*, *:before, *:after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+.darkmode-layer, .darkmode-toggle {
+    z-index: 500;
+}
+
+.darkmode--activated, .darkmode--activated .tln-line, .modal span, .modal p, .modal h1 {
+    mix-blend-mode: difference;
+    color: white;
+}
+
+.header {
+    width: 100%;
+    height: 10vh;
+    display: flex;
+    align-items: center;
+}
+
+.options {
+    overflow: visible;
+    position: absolute;
+    left: 3vh;
+}
+
+.options button {
+    border: 1px solid #101820;
+    color:  #101820;
+    background: none;
+    cursor: pointer;
+    font-size: 2vw;
+    user-select: none;
+    padding: 1vmin 1.6vmin;
+    transition: 250ms;
+}
+
+.options button:hover {
+    color: whitesmoke;
+    background: #444;
+}
+
+.header .buttons {
+    position: absolute;
+    right: 3vh;
+}
+
+.header .buttons button {
+    border: 1px solid #101820;
+    background: none;
+    font-family: 'Roboto', sans-serif;
+    cursor: pointer;
+    padding: 1.5vmin 3.5vmin;
+    transition: 250ms ease-in;
+    -o-transition: 250ms ease-in;
+    -ms-transition: 250ms ease-in;
+    -moz-transition: 250ms ease-in;
+    -webkit-transition: 250ms ease-in;
+}
+
+.header .buttons button:hover {
+    color: whitesmoke;
+    background: #444;
+}
+
+.writing {
+    width: 100%;
+    height: 85vh;
+    word-break: break-all;
+    text-align: center;
+}
+
+#textfield {
+    width: 97%;
+    height: 100%;
+    border: 1px solid black;
+    border-style: dashed;
+    padding: 2.5vh;
+    font-size: 2vmin;
+    font-family: monospace;
+    resize: none;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    z-index: 0;
+}
+
+.footer {
+    width: 100%;
+    height: 5vh;
+    padding-left: 2.5vh;
+    display: flex;
+    align-items: center;
+    font-size: 1.6vmin;
+    font-family: 'Roboto', sans-serif;
+    color: #555;
+    background-color: white;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.footer span:not(:first-child) {
+    margin: 5%;
+}
+
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    font-family: 'Roboto', sans-serif;
+}
+
+.modal h1 {
+    text-transform: uppercase;
+    font-family: 'Roboto Condensed', sans-serif;
+}
+
+.modal-content {
+    position: absolute;
+    left: 50%;
+    top: 23%;
+    transform: translate(-50%, -50%);
+    background-color: #fefefe;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 50%; /* Could be more or less, depending on screen size */
+    word-break: break-all;
+    font-size: 3vmin;
+  }
+  
+  /* The Close Button */
+  .close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+  
+  .close:hover,
+  .close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
+@media screen and (max-width: 900px) {
+    .options button {
+        padding: 2vmin 3vmin;
+    }
+
+    #textfield {
+        font-size: 2.5vmin;
+    }
+
+    .footer {
+        font-size: 2.2vmin;
+    }
+}
